@@ -30,11 +30,28 @@ $(function() {
 
 	// When the page is loaded it asks you for a key and sends it to the server
 
-	form.submit(function(e){
+	/*form.submit(function(e){
 
 		e.preventDefault();
 
 		//key = secretTextBox.val().trim();
+		key = "Dilian";
+
+		// If there is a key, send it to the server-side
+		// through the socket.io channel with a 'load' event.
+
+		if(key.length) {
+			socket.emit('load', {
+				key: key
+			});
+		}
+
+	});*/
+
+	$(document).ready( function(){
+
+		//form.hide();
+		
 		key = "Dilian";
 
 		// If there is a key, send it to the server-side
