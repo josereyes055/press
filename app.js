@@ -28,8 +28,9 @@ app.use(express.static(__dirname + '/public'));
 // and controlling it. Change it to something that only you know.
 
 var secret = 'Dilian';
-var counterYes = 0;
-var counterNo = 0;
+var counterA = 0;
+var counterB = 0;
+var counterC = 0;
 
 // Initialize a new socket.io application
 
@@ -50,16 +51,20 @@ var presentation = io.on('connection', function (socket) {
 
 		//if(data.key === secret) {
 
-			if( data.sel === "si" ){
-				counterYes += 1;
+			if( data.sel === "A" ){
+				counterA += 1;
 			}
-			if( data.sel === "no" ){
-				counterNo += 1;
+			if( data.sel === "B" ){
+				counterB += 1;
+			}
+			if( data.sel === "C" ){
+				counterC += 1;
 			}
 
 			socket.broadcast.emit('result', {
-				yes: counterYes,
-				no: counterNo
+				rA: counterA,
+				rB: counterB,
+				rC: counterC
 			});
 
 		//}

@@ -98,8 +98,9 @@ $(function() {
 
 			socket.on('result', function(data){
 
-				$(".counterYes").html( data.yes );
-				$(".counterNo").html( data.no );
+				$(".counterA").html( data.rA );
+				$(".counterB").html( data.rB );
+				$(".counterC").html( data.rC );
 		
 			});
 
