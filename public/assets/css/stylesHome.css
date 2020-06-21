@@ -232,112 +232,33 @@ form.login input[type=submit] {
 .tz-link span{
 	color: #da431c;
 }
-
-.page1{
-	display: flex;
-	font-family: DIN !important;
-	flex-direction: row;
-	text-align: right;
-	justify-content:center;
-	align-items: center;
+.placeHolder{
+	width: 100vw;
+	height: 100vh;
+	display: block;
+	overflow-y: auto;
+}
+.postit {
+    background: #ffe000;
+    font-size: 22px !important;
+    display: inline-flex;
+    padding: 10px !important;
+    width: 150px !important;
+    height: 150px;
+	margin: 5px !important;
+	position: relative;
 }
 
-.page1 .title{
-	padding: 40px;
-    font-size: 42px !important;
-    line-height: 1;
-    border-right: 3px solid #fff;
-}
-
-.page1 .title b{
-	font-family: DINBlack !important;
-}
-
-.page1 .text{
-	padding: 40px;
-    max-width: 400px;
-    line-height: 1;
-    font-size: 25px;
-    text-align: left;
-    font-family: DINItalic !important;
-}
-.page1 .text small{
-	text-align: left;
-	font-family: DINItalicBold !important;
-	font-size: 20px;
-    display: block;
-    margin: 10px;
-}
-
-.page2{
-	color: #606060;
-    
-    max-width: 25%;
-    text-align: left;
-}
-.page2 p{
-	font-size: 25px;
-}
-
-.page3{
-	text-align: right;
-	color: #606060;
-	max-width: 600px;
+.postit span {
     position: absolute;
-    right: 0;
+    bottom: 5px;
+    right: 5px;
 }
 
-.page3 b{
-	font-family: DINBlack !important;
+.placeHolder .postit span{
+	opacity: 0;
 }
 
-.page3 span{
-	color: #764e9b;
-}
-
-.page4{
-	color: #606060;
-    font-size: 20px!important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-	padding-top: 200px !important;
-	font-family: DIN !important;
-}
-
-.page4 .title{
-	color: purple;
-    text-align: left;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-right: 1px solid purple;
-	margin-right: 20px;
-	max-width: 260px;
-}
-
-.page4 .title b{
-	display: block;
-    font-family: DINBlack !important;
-    font-size: 40px;
-}
-
-.page4 .data{
-	max-width: 400px;
-    margin-left: 20px !important;
-}
-
-.page4 .data b{
-	display: block;
-    text-align: left;
-    margin-top: 20px;
-}
-
-.page5{
-    max-width: 35%;
-    text-align: right;
-}
-.page5 p{
-	font-size: 30px;
-    font-family: DINItalic;
+.placeHolder.voting .postit span{
+	opacity: 1;
 }

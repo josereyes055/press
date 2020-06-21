@@ -82,20 +82,37 @@ $(function() {
 				});
 			});
 
-			$("#playButton").click(function(){
 
-				if( playing == false){
-					order = "play";
-					$(this).html("stop");
-					playing = true;
-				}else{
-					order = "stop";
-					$(this).html("play");
-					playing = false;
-				}
+			$("video").on("play", function (e) {
+				thaId = $(this).attr('id');
 				socket.emit('play', {
-					command: order,
+					command: "play",
+					id: thaId,
 					key: key
+				});
+			});
+			$("video").on("pause", function (e) {
+				thaId = $(this).attr('id');
+				socket.emit('play', {
+					command: "stop",
+					id: thaId,
+					key: key
+				});
+			});
+
+			$("video").on("seeked", function (e) {
+				thaId = $(this).attr('id');
+				socket.emit('play', {
+					command: "seek",
+					id: thaId,
+					time: Math.floor( e.target.currentTime),
+					key: key
+				});
+			});
+
+			$("#votacion").click(function(){
+				socket.emit('turnVotation', {
+					command: "on"
 				});
 			});
 
@@ -114,6 +131,21 @@ $(function() {
 				setInterval(function () {
 					ignore = false;
 				},100);
+
+			});
+
+			socket.on('newIdea', function(data){
+
+				$(".placeHolder").append( '<div class="postit" id="'+data.key+'">'+data.idea+'<span id="vote'+data.key+'">0</span></div>' );
+		
+			});
+
+			socket.on('voteRecieved', function(data){
+
+				obj = document.getElementById("vote"+data.id);
+				cant = parseInt( obj.innerHTML);
+				cant ++;
+				obj.innerHTML = cant;
 
 			});
 

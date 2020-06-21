@@ -9,7 +9,8 @@ $(function() {
 		width: 1280,
 		height: 720,
 	});
-
+	//Reveal.toggleOverview( false );
+	
 	// Connect to the socket
 
 	var socket = io();
@@ -20,7 +21,7 @@ $(function() {
 	var secretTextBox = form.find('input[type=text]');
 	var presentation = $('.reveal');
 
-	var key = "", animationTimeout;
+	var key = "", text = "", animationTimeout;
 
 	// When the page is loaded it asks you for a key and sends it to the server
 
@@ -42,8 +43,35 @@ $(function() {
 
 	});
 
-	
+	$("#creencia").submit(function( e ){
+		e.preventDefault();
+		text = $("#newIdea").val();
+		$("#newIdea").val("");
+		socket.emit('ideaRecieved', {
+			idea: text
+		});
+	});
 
+	var votationEnabled = false;
+	var numVotes = 0;
+	
+	
+	$(document).on('click', '.postit', function( e ) {
+		obj = e.target;
+		id = obj.id;
+		
+
+		if( votationEnabled ){
+			numVotes ++;
+			if( numVotes > 5){
+				votationEnabled = false;
+			}
+			socket.emit('ideaVoted', {
+				id: id
+			});
+		}
+		
+  	});
 	// The server will either grant or deny access, depending on the secret key
 
 	socket.on('access', function(data){
@@ -96,23 +124,44 @@ $(function() {
 
 			});
 
-			socket.on('result', function(data){
+			socket.on('enableVotation', function(){
+				$("#creencia").hide();
+				$(".placeHolder").addClass("voting");
+				votationEnabled = true;
+			});
 
-				$(".counterA").html( data.rA );
-				$(".counterB").html( data.rB );
-				$(".counterC").html( data.rC );
-		
+			socket.on('newIdea', function(data){
+
+				$(".placeHolder").append( '<div class="postit" id="'+data.key+'">'+data.idea+'<span id="vote'+data.key+'">0</span></div>' );
+
+			});
+
+			socket.on('voteRecieved', function(data){
+
+				obj = document.getElementById("vote"+data.id);
+				cant = parseInt( obj.innerHTML);
+				cant ++;
+				obj.innerHTML = cant;
+
 			});
 
 			
 			socket.on('command', function(data){
 
-				if( data.command === "play" ){
-					$('#thaVideo').get(0).play();
-				}else{
-					$('#thaVideo').get(0).pause()
+				switch( data.command){
+					case "play":
+						$('#'+data.id).get(0).play();
+						break;
+					case "stop":
+						$('#'+data.id).get(0).pause();
+						break;
+					case "seek":
+						video = document.getElementById(data.id);
+						//console.log( data.time );
+						tiempo = Math.floor( data.time );
+						video.currentTime = tiempo;
+						break;
 				}
-				
 		
 			});
 

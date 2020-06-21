@@ -28,9 +28,10 @@ app.use(express.static(__dirname + '/public'));
 // and controlling it. Change it to something that only you know.
 
 var secret = 'Dilian';
-var counterA = 0;
+/*var counterA = 0;
 var counterB = 0;
-var counterC = 0;
+var counterC = 0;*/
+var creenciaCounter = 0;
 
 // Initialize a new socket.io application
 
@@ -47,40 +48,48 @@ var presentation = io.on('connection', function (socket) {
 
 	});
 
-	socket.on('selection', function(data){
 
-		//if(data.key === secret) {
-
-			if( data.sel === "A" ){
-				counterA += 1;
-			}
-			if( data.sel === "B" ){
-				counterB += 1;
-			}
-			if( data.sel === "C" ){
-				counterC += 1;
-			}
-
-			socket.broadcast.emit('result', {
-				rA: counterA,
-				rB: counterB,
-				rC: counterC
-			});
-
-		//}
-
-	});
 
 	socket.on('play', function(data){
 			
-			socket.broadcast.emit('command', {
-				command: data.command
-			});
-
+			if( data.time == null ){
+				socket.broadcast.emit('command', {
+					command: data.command,
+					id: data.id
+				});
+			}else{
+				socket.broadcast.emit('command', {
+					command: data.command,
+					id: data.id,
+					time: data.time
+				});
+			}
+			
 
 	});
 
+	socket.on('ideaRecieved', function(data){
+		
+		io.emit('newIdea', {
+			key: creenciaCounter,
+			idea: data.idea
+		});
+		creenciaCounter ++;
+	});
 
+	socket.on('turnVotation', function(data){
+		
+		socket.broadcast.emit('enableVotation', {
+			command: "on"
+		});
+		creenciaCounter ++;
+	});
+
+	socket.on('ideaVoted', function(data){
+		io.emit('voteRecieved', {
+			id: data.id
+		});
+	});
 
 	// Clients send the 'slide-changed' message whenever they navigate to a new slide.
 

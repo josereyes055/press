@@ -58,19 +58,19 @@
 			history: false,
 
 			// Enable keyboard shortcuts for navigation
-			keyboard: true,
+			keyboard: false,
 
 			// Optional function that blocks keyboard events when retuning false
 			keyboardCondition: null,
 
 			// Enable the slide overview mode
-			overview: true,
+			overview: false,
 
 			// Vertical centering of slides
 			center: true,
 
 			// Enables touch navigation on devices with touch input
-			touch: true,
+			touch: false,
 
 			// Loop the presentation
 			loop: false,
