@@ -111,6 +111,7 @@ $(function() {
 			});
 
 			$("#votacion").click(function(){
+				$(".placeHolder").addClass("voting");
 				socket.emit('turnVotation', {
 					command: "on"
 				});

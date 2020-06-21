@@ -46,10 +46,15 @@ $(function() {
 	$("#creencia").submit(function( e ){
 		e.preventDefault();
 		text = $("#newIdea").val();
-		$("#newIdea").val("");
-		socket.emit('ideaRecieved', {
-			idea: text
-		});
+		
+		
+		if( text !== ""){
+			$("#newIdea").val("");
+			socket.emit('ideaRecieved', {
+				idea: text
+			});
+		}
+		
 	});
 
 	var votationEnabled = false;
@@ -63,7 +68,7 @@ $(function() {
 
 		if( votationEnabled ){
 			numVotes ++;
-			if( numVotes > 5){
+			if( numVotes >= 5){
 				votationEnabled = false;
 			}
 			socket.emit('ideaVoted', {
