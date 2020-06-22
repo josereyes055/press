@@ -1,3 +1,5 @@
+
+
 $(function() {
 
 	// Initialize the Reveal.js library with the default config options
@@ -122,6 +124,33 @@ $(function() {
 					command: "on"
 				});
 			});
+			$("#mail").click(function(){
+				text = "Creencias: ";
+				text += " || ";
+				items =  document.querySelectorAll("#ideaHolder .postit p");
+				itemsVotes =  document.querySelectorAll("#ideaHolder .postit span");
+				for (i = 0; i < items.length; i++) {
+					text += items[i].innerHTML + ", votos: "+itemsVotes[i].innerHTML;
+					text += " || ";
+				}
+				//alert(text);
+				socket.emit('sendMail', {
+					text: text
+				});
+			});
+			$("#mail2").click(function(){
+				text = "Propósitos: ";
+				text += " || ";
+				items =  document.querySelectorAll("#purposeHolder .postit p");
+				itemsVotes =  document.querySelectorAll("#purposeHolder .postit span");
+				for (i = 0; i < items.length; i++) {
+					text += items[i].innerHTML + ", votos: "+itemsVotes[i].innerHTML;
+					text += " || ";
+				}
+				socket.emit('sendMail', {
+					text: text
+				});
+			});
 
 
 			socket.on('navigate', function(data){
@@ -144,7 +173,7 @@ $(function() {
 
 			socket.on('newIdea', function(data){
 
-				$(data.holder).append( '<div class="postit" id="'+data.key+'">'+data.idea+'<span id="vote'+data.key+'">0</span></div>' );
+				$(data.holder).append( '<div class="postit" id="'+data.key+'"><p>'+data.idea+'</p><span id="vote'+data.key+'">0</span></div>' );
 		
 			});
 

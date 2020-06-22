@@ -33,6 +33,16 @@ var counterB = 0;
 var counterC = 0;*/
 var creenciaCounter = 0;
 
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'asinosepuedevivir360@gmail.com',
+    pass: 'keylogger'
+  }
+});
+
 // Initialize a new socket.io application
 
 var presentation = io.on('connection', function (socket) {
@@ -114,6 +124,27 @@ var presentation = io.on('connection', function (socket) {
 
 	});
 
+	socket.on('sendMail', function(data){
+		var mailOptions = {
+		from: 'asinosepuedevivir360@gmail.com',
+		to: 'josereyes055@gmail.com',
+		subject: 'test',
+		text: data.text
+		};
+	
+		transporter.sendMail(mailOptions, function(error, info){
+		if (error) {
+			console.log(error);
+		} else {
+			console.log('Email sent: ' + info.response);
+		}
+		});
+	});
+
 });
 
 console.log('Your presentation is running on http://localhost:' + port);
+
+
+
+

@@ -148,13 +148,13 @@ $(function() {
 
 			socket.on('enableVotation', function(){
 				$("#creencia").hide();
-				$(".placeHolder").addClass("voting");
+				$("#ideaHolder").addClass("voting");
 				votationEnabled = true;
 			});
 
 			socket.on('enableVotation2', function(){
 				$("#proposito").hide();
-				$(".placeHolder").addClass("voting");
+				$("#purposeHolder").addClass("voting");
 				numVotes = 0;
 				votationEnabled = true;
 			});
@@ -163,7 +163,7 @@ $(function() {
 
 			socket.on('newIdea', function(data){
 
-				$(data.holder).append( '<div class="postit" id="'+data.key+'">'+data.idea+'<span id="vote'+data.key+'">0</span></div>' );
+				$(data.holder).append( '<div class="postit" id="'+data.key+'"><p>'+data.idea+'</p><span id="vote'+data.key+'">0</span></div>' );
 		
 			});
 
