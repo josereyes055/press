@@ -72,7 +72,8 @@ var presentation = io.on('connection', function (socket) {
 		
 		io.emit('newIdea', {
 			key: creenciaCounter,
-			idea: data.idea
+			idea: data.idea,
+			holder: data.holder
 		});
 		creenciaCounter ++;
 	});
@@ -82,7 +83,12 @@ var presentation = io.on('connection', function (socket) {
 		socket.broadcast.emit('enableVotation', {
 			command: "on"
 		});
-		creenciaCounter ++;
+	});
+	socket.on('turnVotation2', function(data){
+		
+		socket.broadcast.emit('enableVotation2', {
+			command: "on"
+		});
 	});
 
 	socket.on('ideaVoted', function(data){

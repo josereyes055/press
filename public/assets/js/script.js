@@ -111,11 +111,18 @@ $(function() {
 			});
 
 			$("#votacion").click(function(){
-				$(".placeHolder").addClass("voting");
+				$("#ideaHolder").addClass("voting");
 				socket.emit('turnVotation', {
 					command: "on"
 				});
 			});
+			$("#votacion2").click(function(){
+				$("#purposeHolder").addClass("voting");
+				socket.emit('turnVotation2', {
+					command: "on"
+				});
+			});
+
 
 			socket.on('navigate', function(data){
 	
@@ -137,7 +144,7 @@ $(function() {
 
 			socket.on('newIdea', function(data){
 
-				$(".placeHolder").append( '<div class="postit" id="'+data.key+'">'+data.idea+'<span id="vote'+data.key+'">0</span></div>' );
+				$(data.holder).append( '<div class="postit" id="'+data.key+'">'+data.idea+'<span id="vote'+data.key+'">0</span></div>' );
 		
 			});
 

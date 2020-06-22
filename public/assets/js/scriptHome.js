@@ -51,7 +51,23 @@ $(function() {
 		if( text !== ""){
 			$("#newIdea").val("");
 			socket.emit('ideaRecieved', {
-				idea: text
+				idea: text, 
+				holder: "#ideaHolder"
+			});
+		}
+		
+	});
+
+	$("#proposito").submit(function( e ){
+		e.preventDefault();
+		text = $("#newPurpose").val();
+		
+		
+		if( text !== ""){
+			$("#newPurpose").val("");
+			socket.emit('ideaRecieved', {
+				idea: text, 
+				holder: "#purposeHolder"
 			});
 		}
 		
@@ -59,6 +75,7 @@ $(function() {
 
 	var votationEnabled = false;
 	var numVotes = 0;
+	
 	
 	
 	$(document).on('click', '.postit', function( e ) {
@@ -135,10 +152,19 @@ $(function() {
 				votationEnabled = true;
 			});
 
+			socket.on('enableVotation2', function(){
+				$("#proposito").hide();
+				$(".placeHolder").addClass("voting");
+				numVotes = 0;
+				votationEnabled = true;
+			});
+
+
+
 			socket.on('newIdea', function(data){
 
-				$(".placeHolder").append( '<div class="postit" id="'+data.key+'">'+data.idea+'<span id="vote'+data.key+'">0</span></div>' );
-
+				$(data.holder).append( '<div class="postit" id="'+data.key+'">'+data.idea+'<span id="vote'+data.key+'">0</span></div>' );
+		
 			});
 
 			socket.on('voteRecieved', function(data){

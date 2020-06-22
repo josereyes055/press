@@ -258,9 +258,38 @@ form.login input[type=submit] {
 .placeHolder .postit span{
 	opacity: 0;
 }
-
+.placeHolder.voting .postit{
+	cursor: pointer;
+}
 .placeHolder.voting .postit span{
 	opacity: 1;
+}
+
+#creencia, #proposito {
+    display: flex;
+    width: fit-content;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    
+}
+#newIdea, #newPurpose {
+    padding: 5px;
+    border-radius: 5px 0px 0px 5px;
+    border: none;
+    height: 20px;
+    min-width: 300px;
+}
+input[type="submit"] {
+    padding: 5px;
+    border-radius: 0px 5px 5px 0px;
+    border: none;
+    background-color: #2eb12e;
+    color: #fff;
+    height: 30px;
+	width: 30px;
+	cursor: pointer;
 }
 
 .page{
@@ -280,26 +309,44 @@ video{
 }
 
 #SimonSinek {
-    width: 50%;
-    left: 1%;
-    top: 20%;
+	height: 87.5%;
+    left: 0;
+    top: 0;
+    right: 0;
+    margin: auto;
 }
-#ElValorparaCambiar {
-    width: 62%;
+#calzatodo {
+    width: 60%;
+    left: 8%;
+    top: 32%;
+}
+#Nintendo {
+	width: 70%;
     left: 1%;
-    top: 28%;
+    top: 37%;
 }
 #Netflix {
-    height: 55%;
+	height: 50%;
     margin: auto;
     left: 0;
     right: 0;
-    top: 25%;
+    top: 23%;
 }
-video#croacia {
+#croacia {
     width: 40%;
     left: 10%;
     top: 2%;
+}
+#rappi {
+    border: none;
+    width: 25%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 35%;
+    position: absolute;
+    background: transparent;
+    box-shadow: none;
 }
 #princesaDiana {
     height: 60%;
