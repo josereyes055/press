@@ -127,7 +127,7 @@ var presentation = io.on('connection', function (socket) {
 	socket.on('sendMail', function(data){
 		var mailOptions = {
 		from: 'asinosepuedevivir360@gmail.com',
-		to: 'josereyes055@gmail.com',
+		to: 'oterodaniela1@hotmail.com',
 		subject: 'test',
 		text: data.text
 		};
